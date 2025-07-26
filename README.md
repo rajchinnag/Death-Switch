@@ -195,5 +195,5 @@ This system is designed for legitimate posthumous document delivery. Users are r
 
 ---
 
-**Created by [Deepthi Caroline](https://github.com/Deepthi2001Carolin) & [Raj Chinnag](https://github.com/rajchinnag)**  
+**Created by [Deepthi Carolin](https://github.com/Deepthi2001Carolin) & [Raj Chinnag](https://github.com/rajchinnag)**  
 **Made with 💙 for digital legacy protection**
