@@ -188,12 +188,6 @@ This system is designed for legitimate posthumous document delivery. Users are r
 - Testing the system thoroughly before relying on it
 - Informing recipients about the system appropriately
 
-## 🆘 Support
-
-- 📧 Email: support@yourproject.com
-- 💬 Issues: [GitHub Issues](https://github.com/yourusername/death-switch-ai/issues)
-- 📖 Wiki: [Documentation](https://github.com/yourusername/death-switch-ai/wiki)
-
 ---
 
 **Made with 💙 for digital legacy protection**
