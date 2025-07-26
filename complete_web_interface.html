@@ -275,6 +275,42 @@
         }
     </style>
 </head>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Update dashboard stats
+    fetch("/status")
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("last-activity").textContent = data.last_activity;
+            document.getElementById("next-check").textContent = `${data.days_remaining} days`;
+        });
+
+    // Handle Add Recipient
+    document.getElementById("recipient-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const recipient = {
+            name: document.getElementById("recipient-name").value,
+            email: document.getElementById("recipient-email").value,
+            phone: document.getElementById("recipient-phone").value,
+            whatsapp: document.getElementById("recipient-whatsapp").value || document.getElementById("recipient-phone").value,
+            language: document.getElementById("recipient-language").value
+        };
+
+        fetch("/add-recipient", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(recipient)
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(data.status || "Recipient added!");
+            location.reload();
+        })
+        .catch(err => alert("Error adding recipient"));
+    });
+});
+</script>
+
 <body>
     <div class="container">
         <div class="header">
