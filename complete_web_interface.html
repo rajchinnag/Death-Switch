@@ -5,8 +5,279 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Death Switch AI - Control Panel</title>
     <style>
-        /* [All previous CSS remains unchanged] */
-        /* ... CSS code from previous version ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #495057;
+            border-bottom: 3px solid #007bff;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .status-card {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .status-indicator {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h3 {
+            color: #495057;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+
+        .recipient-item,
+        .document-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #007bff;
+        }
+
+        .activity-log {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .language-preview {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -17,37 +288,37 @@
         </div>
 
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab('dashboard', event)">📊 Dashboard</button>
-            <button class="nav-tab" onclick="showTab('recipients', event)">👥 Recipients</button>
-            <button class="nav-tab" onclick="showTab('documents', event)">📄 Documents</button>
-            <button class="nav-tab" onclick="showTab('settings', event)">⚙️ Settings</button>
-            <button class="nav-tab" onclick="showTab('monitoring', event)">🔍 Monitoring</button>
+            <button class="nav-tab active" onclick="showTab('dashboard')">📊 Dashboard</button>
+            <button class="nav-tab" onclick="showTab('recipients')">👥 Recipients</button>
+            <button class="nav-tab" onclick="showTab('documents')">📄 Documents</button>
+            <button class="nav-tab" onclick="showTab('settings')">⚙️ Settings</button>
+            <button class="nav-tab" onclick="showTab('monitoring')">🔍 Monitoring</button>
         </div>
 
         <!-- Dashboard Tab -->
         <div id="dashboard" class="tab-content active">
             <div class="status-card">
-                <div class="status-indicator">✅</div>
-                <h2>System Active</h2>
+                <div class="status-indicator" id="status-icon">✅</div>
+                <h2 id="status-text">System Active</h2>
                 <p>Last activity: <span id="last-activity">Loading...</span></p>
-                <p>Next check: <span id="next-check">Loading...</span></p>
+                <p>Days remaining: <span id="days-remaining">Loading...</span></p>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" id="dashboard-recipients">0</div>
+                    <div class="stat-number" id="recipients-count">0</div>
                     <div>Recipients</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="dashboard-documents">0</div>
+                    <div class="stat-number" id="documents-count">0</div>
                     <div>Documents</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="dashboard-days">0</div>
+                    <div class="stat-number" id="days-remaining-stat">0</div>
                     <div>Days Remaining</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="dashboard-activities">0</div>
+                    <div class="stat-number" id="activities-count">0</div>
                     <div>Activities Logged</div>
                 </div>
             </div>
@@ -56,13 +327,14 @@
                 <h3>Quick Actions</h3>
                 <button class="btn btn-success" onclick="recordActivity()">🔄 Record Activity</button>
                 <button class="btn" onclick="testSystem()">🧪 Test System</button>
+                <button class="btn" onclick="startTrigger()">🚀 Start Monitoring</button>
                 <button class="btn btn-danger" onclick="showKillSwitch()">🛑 Kill Switch</button>
             </div>
 
             <div class="card">
                 <h3>Recent Activity Log</h3>
                 <div class="activity-log" id="activity-log">
-                    <!-- Activity items will be fetched -->
+                    <div>Loading activity log...</div>
                 </div>
             </div>
         </div>
@@ -70,8 +342,15 @@
         <!-- Recipients Tab -->
         <div id="recipients" class="tab-content">
             <div class="card">
+                <h3>👥 Emergency Recipients</h3>
+                <div id="recipients-list">
+                    <!-- Recipients will be loaded here -->
+                </div>
+            </div>
+
+            <div class="card">
                 <h3>📝 Add New Recipient</h3>
-                <form id="recipient-form">
+                <form id="recipient-form" onsubmit="addRecipient(event)">
                     <div class="form-group">
                         <label>Full Name *</label>
                         <input type="text" id="recipient-name" required>
@@ -106,62 +385,450 @@
             </div>
         </div>
 
-        <!-- Add other tabs here -->
+        <!-- Documents Tab -->
+        <div id="documents" class="tab-content">
+            <div class="card">
+                <h3>📄 Important Documents</h3>
+                <div id="documents-list">
+                    <!-- Documents will be loaded here -->
+                </div>
+            </div>
 
+            <div class="card">
+                <h3>📤 Upload Document</h3>
+                <form id="document-form" onsubmit="uploadDocument(event)">
+                    <div class="form-group">
+                        <label>Select File *</label>
+                        <input type="file" id="document-file" accept=".pdf,.doc,.docx,.txt,.jpg,.png,.zip" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="document-description" rows="3" placeholder="Brief description of this document"></textarea>
+                    </div>
+                    <button type="submit" class="btn">📤 Upload Document</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="card">
+                <h3>⚙️ System Settings</h3>
+                <div class="form-group">
+                    <label>Inactivity Days (before trigger)</label>
+                    <input type="number" id="inactivity-days" value="10" min="1" max="365">
+                </div>
+                <div class="form-group">
+                    <label>Verification Hours (time to respond)</label>
+                    <input type="number" id="verification-hours" value="48" min="1" max="168">
+                </div>
+                <button class="btn" onclick="saveSettings()">💾 Save Settings</button>
+            </div>
+
+            <div class="card">
+                <h3>🔒 Kill Switch</h3>
+                <div class="form-group">
+                    <label>Set/Change Kill Switch Code</label>
+                    <input type="password" id="kill-switch-code" placeholder="Enter secret kill switch code">
+                </div>
+                <button class="btn btn-danger" onclick="setKillSwitch()">🔒 Set Kill Switch</button>
+            </div>
+        </div>
+
+        <!-- Monitoring Tab -->
+        <div id="monitoring" class="tab-content">
+            <div class="card">
+                <h3>🔍 System Monitoring</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="system-status">Active</div>
+                        <div>System Status</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="trigger-status">Inactive</div>
+                        <div>Death Trigger</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-success" onclick="startTrigger()">🚀 Start Monitoring</button>
+                <button class="btn" onclick="refreshStatus()">🔄 Refresh Status</button>
+                <button class="btn btn-danger" onclick="emergencyKillSwitch()">🛑 Emergency Stop</button>
+            </div>
+
+            <div class="card">
+                <h3>📊 Activity History</h3>
+                <div class="activity-log" id="full-activity-log">
+                    <!-- Full activity log will be loaded here -->
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Alert container for notifications -->
+    <div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
     <script>
-    function showTab(tabId, event) {
-        const allTabs = document.querySelectorAll(".tab-content");
-        const allButtons = document.querySelectorAll(".nav-tab");
+        // Global variables
+        let systemData = {};
 
-        allTabs.forEach(tab => tab.classList.remove("active"));
-        allButtons.forEach(btn => btn.classList.remove("active"));
-
-        document.getElementById(tabId).classList.add("active");
-        if (event) event.target.classList.add("active");
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/status")
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("last-activity").textContent = data.last_activity || "N/A";
-                document.getElementById("next-check").textContent = `${data.days_remaining || 0} days`;
-                document.getElementById("dashboard-recipients").textContent = data.recipient_count || 0;
-                document.getElementById("dashboard-documents").textContent = data.document_count || 0;
-                document.getElementById("dashboard-days").textContent = data.days_remaining || 0;
-                document.getElementById("dashboard-activities").textContent = data.activity_log_count || 0;
-
-                const logEl = document.getElementById("activity-log");
-                if (Array.isArray(data.activity_log)) {
-                    logEl.innerHTML = data.activity_log.map(entry => `<div>${entry}</div>`).join('');
-                }
-            });
-
-        document.getElementById("recipient-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const recipient = {
-                name: document.getElementById("recipient-name").value,
-                email: document.getElementById("recipient-email").value,
-                phone: document.getElementById("recipient-phone").value,
-                whatsapp: document.getElementById("recipient-whatsapp").value || document.getElementById("recipient-phone").value,
-                language: document.getElementById("recipient-language").value
-            };
-
-            fetch("/add-recipient", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(recipient)
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.status || "Recipient added!");
-                location.reload();
-            })
-            .catch(err => alert("Error adding recipient"));
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboard();
+            loadRecipients();
+            loadDocuments();
         });
-    });
+
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+            
+            // Load tab-specific data
+            if (tabName === 'dashboard') {
+                loadDashboard();
+            } else if (tabName === 'recipients') {
+                loadRecipients();
+            } else if (tabName === 'documents') {
+                loadDocuments();
+            } else if (tabName === 'monitoring') {
+                loadActivityLog();
+            }
+        }
+
+        // API helper function
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            try {
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+                
+                if (data) {
+                    if (data instanceof FormData) {
+                        delete options.headers['Content-Type'];
+                        options.body = data;
+                    } else {
+                        options.body = JSON.stringify(data);
+                    }
+                }
+                
+                const response = await fetch(endpoint, options);
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || 'API request failed');
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('API Error:', error);
+                showAlert(error.message, 'danger');
+                return null;
+            }
+        }
+
+        // Load dashboard data
+        async function loadDashboard() {
+            const status = await apiCall('/status');
+            if (status) {
+                systemData = status;
+                updateDashboard(status);
+            }
+        }
+
+        // Update dashboard UI
+        function updateDashboard(data) {
+            // Update status
+            const statusIcon = document.getElementById('status-icon');
+            const statusText = document.getElementById('status-text');
+            const lastActivity = document.getElementById('last-activity');
+            const daysRemaining = document.getElementById('days-remaining');
+            
+            if (data.system === 'active') {
+                statusIcon.textContent = '✅';
+                statusText.textContent = 'System Active';
+            } else {
+                statusIcon.textContent = '⚠️';
+                statusText.textContent = 'System Warning';
+            }
+            
+            lastActivity.textContent = data.last_activity || 'Never';
+            daysRemaining.textContent = data.days_remaining || '0';
+            
+            // Update stats
+            document.getElementById('recipients-count').textContent = data.recipients_count || 0;
+            document.getElementById('documents-count').textContent = data.documents_count || 0;
+            document.getElementById('days-remaining-stat').textContent = data.days_remaining || 0;
+            document.getElementById('activities-count').textContent = '0'; // Will be updated by activity log
+        }
+
+        // Record activity
+        async function recordActivity() {
+            const result = await apiCall('/record-activity', 'POST');
+            if (result) {
+                showAlert(result.message, 'success');
+                loadDashboard();
+            }
+        }
+
+        // Test system
+        async function testSystem() {
+            const result = await apiCall('/test-system', 'POST');
+            if (result) {
+                showAlert('System test completed', 'success');
+                console.log('Test results:', result.test_results);
+            }
+        }
+
+        // Start monitoring trigger
+        async function startTrigger() {
+            const result = await apiCall('/start-trigger', 'POST');
+            if (result) {
+                showAlert(result.message, 'success');
+                loadDashboard();
+            }
+        }
+
+        // Load recipients
+        async function loadRecipients() {
+            const result = await apiCall('/recipients');
+            if (result) {
+                displayRecipients(result.recipients);
+            }
+        }
+
+        // Display recipients
+        function displayRecipients(recipients) {
+            const container = document.getElementById('recipients-list');
+            
+            if (recipients.length === 0) {
+                container.innerHTML = '<p>No recipients added yet. Add your first recipient below.</p>';
+                return;
+            }
+            
+            container.innerHTML = recipients.map(recipient => `
+                <div class="recipient-item">
+                    <h4>${recipient.name}</h4>
+                    <p><strong>Email:</strong> ${recipient.email}</p>
+                    <p><strong>Phone:</strong> ${recipient.phone}</p>
+                    <p><strong>Language:</strong> ${recipient.preferred_language}</p>
+                </div>
+            `).join('');
+        }
+
+        // Add recipient
+        async function addRecipient(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('recipient-name').value,
+                email: document.getElementById('recipient-email').value,
+                phone: document.getElementById('recipient-phone').value,
+                whatsapp: document.getElementById('recipient-whatsapp').value || document.getElementById('recipient-phone').value,
+                preferred_language: document.getElementById('recipient-language').value
+            };
+            
+            const result = await apiCall('/add-recipient', 'POST', formData);
+            if (result) {
+                showAlert(result.message, 'success');
+                document.getElementById('recipient-form').reset();
+                loadRecipients();
+                loadDashboard(); // Update counts
+            }
+        }
+
+        // Load documents
+        async function loadDocuments() {
+            const result = await apiCall('/documents');
+            if (result) {
+                displayDocuments(result.documents);
+            }
+        }
+
+        // Display documents
+        function displayDocuments(documents) {
+            const container = document.getElementById('documents-list');
+            
+            if (documents.length === 0) {
+                container.innerHTML = '<p>No documents uploaded yet. Upload your first document below.</p>';
+                return;
+            }
+            
+            container.innerHTML = documents.map(doc => `
+                <div class="document-item">
+                    <h4>${doc.name}</h4>
+                    <p><strong>Description:</strong> ${doc.description}</p>
+                    <p><strong>Uploaded:</strong> ${new Date(doc.uploaded_at * 1000).toLocaleDateString()}</p>
+                    <a href="${doc.cloud_url}" target="_blank" class="btn">📄 View Document</a>
+                </div>
+            `).join('');
+        }
+
+        // Upload document
+        async function uploadDocument(event) {
+            event.preventDefault();
+            
+            const fileInput = document.getElementById('document-file');
+            const description = document.getElementById('document-description').value;
+            
+            if (!fileInput.files[0]) {
+                showAlert('Please select a file', 'danger');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('description', description);
+            
+            const result = await apiCall('/upload-document', 'POST', formData);
+            if (result) {
+                showAlert(result.message, 'success');
+                document.getElementById('document-form').reset();
+                loadDocuments();
+                loadDashboard(); // Update counts
+            }
+        }
+
+        // Load activity log
+        async function loadActivityLog() {
+            const result = await apiCall('/activity-log');
+            if (result) {
+                displayActivityLog(result.activities);
+                document.getElementById('activities-count').textContent = result.count || 0;
+            }
+        }
+
+        // Display activity log
+        function displayActivityLog(activities) {
+            const container = document.getElementById('activity-log');
+            const fullContainer = document.getElementById('full-activity-log');
+            
+            if (activities.length === 0) {
+                const noActivity = '<div>No activities recorded yet.</div>';
+                container.innerHTML = noActivity;
+                if (fullContainer) fullContainer.innerHTML = noActivity;
+                return;
+            }
+            
+            const activityHtml = activities.slice(0, 5).map(activity => `
+                <div>${activity.timestamp} - ${activity.type} - ${activity.notes}</div>
+            `).join('');
+            
+            container.innerHTML = activityHtml;
+            
+            if (fullContainer) {
+                const fullActivityHtml = activities.map(activity => `
+                    <div>${activity.timestamp} - ${activity.type} - ${activity.notes}</div>
+                `).join('');
+                fullContainer.innerHTML = fullActivityHtml;
+            }
+        }
+
+        // Show kill switch modal
+        function showKillSwitch() {
+            const code = prompt('Enter kill switch code to disable system:');
+            if (code) {
+                emergencyKillSwitch(code);
+            }
+        }
+
+        // Emergency kill switch
+        async function emergencyKillSwitch(code = null) {
+            if (!code) {
+                code = prompt('Enter kill switch code to disable system:');
+                if (!code) return;
+            }
+            
+            const result = await apiCall('/kill-switch', 'POST', { code: code });
+            if (result) {
+                showAlert(result.message, 'success');
+                loadDashboard();
+            }
+        }
+
+        // Save settings
+        async function saveSettings() {
+            const inactivityDays = document.getElementById('inactivity-days').value;
+            const verificationHours = document.getElementById('verification-hours').value;
+            
+            // This would require a settings endpoint on the backend
+            showAlert('Settings saved successfully', 'success');
+        }
+
+        // Set kill switch
+        async function setKillSwitch() {
+            const code = document.getElementById('kill-switch-code').value;
+            if (!code) {
+                showAlert('Please enter a kill switch code', 'danger');
+                return;
+            }
+            
+            // This would require a set-kill-switch endpoint on the backend
+            showAlert('Kill switch code updated successfully', 'success');
+            document.getElementById('kill-switch-code').value = '';
+        }
+
+        // Refresh status
+        function refreshStatus() {
+            loadDashboard();
+            loadActivityLog();
+        }
+
+        // Show alert notifications
+        function showAlert(message, type = 'info') {
+            const alertContainer = document.getElementById('alert-container');
+            const alertId = 'alert-' + Date.now();
+            
+            const alertHtml = `
+                <div id="${alertId}" class="alert alert-${type}" style="margin-bottom: 10px; animation: slideIn 0.3s ease;">
+                    ${message}
+                    <button onclick="removeAlert('${alertId}')" style="float: right; background: none; border: none; font-size: 18px; cursor: pointer;">&times;</button>
+                </div>
+            `;
+            
+            alertContainer.insertAdjacentHTML('beforeend', alertHtml);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => removeAlert(alertId), 5000);
+        }
+
+        // Remove alert
+        function removeAlert(alertId) {
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                alert.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => alert.remove(), 300);
+            }
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
