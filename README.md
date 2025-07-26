@@ -189,11 +189,11 @@ This system is designed for legitimate posthumous document delivery. Users are r
 
 ## 🆘 Support
 
-- 📧 Email: carolinej1978@gmail.com or rajchinna907@gmail.com
+- 📧 Email: carolinj1978@gmail.com or rajchinna907@gmail.com
 - 💬 Issues: [GitHub Issues](https://github.com/rajchinnag/Death-Switch/issues)
 - 📖 Wiki: [Documentation](https://github.com/rajchinnag/Death-Switch/wiki)
 
 ---
 
-**Created by [Raj Chinnag](https://github.com/rajchinnag)**  
+**Created by [Deepthi Caroline](https://github.com/Deepthi2001Carolin) & [Raj Chinnag](https://github.com/rajchinnag)**  
 **Made with 💙 for digital legacy protection**
