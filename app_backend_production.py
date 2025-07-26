@@ -371,4 +371,74 @@ def test_system():
 def get_activity_log():
     """Get recent activity log"""
     if not dsa:
-        return json
+        return jsonify({"error": "System not initialized"}), 500
+    
+    try:
+        import sqlite3
+        conn = sqlite3.connect(dsa.db.db_path)
+        cursor = conn.cursor()
+        
+        # Get last 50 activities
+        cursor.execute('''
+            SELECT timestamp, activity_type, device_id, notes 
+            FROM activity_log 
+            ORDER BY timestamp DESC 
+            LIMIT 50
+        ''')
+        
+        activities = []
+        for row in cursor.fetchall():
+            activities.append({
+                "timestamp": row[0],
+                "type": row[1],
+                "device": row[2] or "Unknown",
+                "notes": row[3] or ""
+            })
+        
+        conn.close()
+        
+        return jsonify({
+            "status": "success",
+            "activities": activities,
+            "count": len(activities)
+        })
+        
+    except Exception as e:
+        return jsonify({"error": f"Failed to get activity log: {str(e)}"}), 500
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Endpoint not found"}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({"error": "Internal server error"}), 500
+
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({"error": "Bad request"}), 400
+
+# CORS preflight handling
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        response = jsonify({})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        return response
+
+if __name__ == '__main__':
+    # For development only
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    
+    print("🚀 Starting Digital Death Switch AI...")
+    print(f"📡 Server running on port {port}")
+    print(f"🔧 Debug mode: {debug}")
+    print(f"💾 DSA Initialized: {app.config.get('DSA_INITIALIZED', False)}")
+    
+    app.run(host='0.0.0.0', port=port, debug=debug)
+else:
+    # For production (when run via gunicorn)
+    app.config['DEBUG'] = False
