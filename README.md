@@ -1,4 +1,3 @@
-# Death-Switch
 # 💙 Digital Death Switch AI
 
 An intelligent posthumous automation system that securely delivers your confidential documents to trusted recipients after inactivity and OTP failure — built with Flask, Twilio, Google Drive API, and WhatsApp integration.
@@ -19,8 +18,8 @@ An intelligent posthumous automation system that securely delivers your confiden
 
 ### 1. Clone this repository
 ```bash
-git clone https://github.com/yourusername/death-switch-ai.git
-cd death-switch-ai
+git clone https://github.com/rajchinnag/Death-Switch.git
+cd Death-Switch
 ```
 
 ### 2. Set up environment variables
@@ -102,8 +101,8 @@ Recipients can receive messages in their preferred language:
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/death-switch-ai.git
-cd death-switch-ai
+git clone https://github.com/rajchinnag/Death-Switch.git
+cd Death-Switch
 
 # Install dependencies
 pip install -r requirements.txt
@@ -188,6 +187,13 @@ This system is designed for legitimate posthumous document delivery. Users are r
 - Testing the system thoroughly before relying on it
 - Informing recipients about the system appropriately
 
+## 🆘 Support
+
+- 📧 Email: carolinej1978@gmail.com or rajchinna907@gmail.com
+- 💬 Issues: [GitHub Issues](https://github.com/rajchinnag/Death-Switch/issues)
+- 📖 Wiki: [Documentation](https://github.com/rajchinnag/Death-Switch/wiki)
+
 ---
 
+**Created by [Raj Chinnag](https://github.com/rajchinnag)**  
 **Made with 💙 for digital legacy protection**
