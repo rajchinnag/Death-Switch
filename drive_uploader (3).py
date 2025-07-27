@@ -56,7 +56,7 @@
                 <h3>Quick Actions</h3>
                 <button class="btn btn-success" onclick="recordActivity()">🔄 Record Activity</button>
                 <button class="btn" onclick="testSystem()">🧪 Test System</button>
-                <button class="btn btn-danger" onclick="showKillSwitch()">🛑 Kill Switch</button>
+                <button class="btn btn-danger" onclick="showKillSwitch()">🚫 Kill Switch</button>
             </div>
 
             <div class="card">
@@ -71,7 +71,7 @@
         <div id="recipients" class="tab-content">
             <div class="card">
                 <h3>📝 Add New Recipient</h3>
-                <form id="recipient-form">
+                <form id="recipient-form" data-user-id="{{ current_user.id }}">
                     <div class="form-group">
                         <label>Full Name *</label>
                         <input type="text" id="recipient-name" required>
@@ -101,12 +101,10 @@
                             <option value="french">French (Français)</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn">💾 Save Recipient</button>
+                    <button type="submit" class="btn">📂 Save Recipient</button>
                 </form>
             </div>
         </div>
-
-        <!-- Add other tabs here -->
 
     </div>
 
@@ -141,12 +139,14 @@
 
         document.getElementById("recipient-form").addEventListener("submit", function (e) {
             e.preventDefault();
+            const userId = e.target.getAttribute("data-user-id");
             const recipient = {
                 name: document.getElementById("recipient-name").value,
                 email: document.getElementById("recipient-email").value,
                 phone: document.getElementById("recipient-phone").value,
                 whatsapp: document.getElementById("recipient-whatsapp").value || document.getElementById("recipient-phone").value,
-                language: document.getElementById("recipient-language").value
+                language: document.getElementById("recipient-language").value,
+                user_id: userId
             };
 
             fetch("/add-recipient", {
